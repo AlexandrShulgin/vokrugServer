@@ -1,12 +1,10 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const connectDB = require('./config/db');
-const { errorHandler } = require('./middleware/errorMiddleware');
-const userRoutes = require('./routes/userRoutes');
-const logger = require('./utils/logger');
+const connectDB = require('./src/config/db');
+const { errorHandler } = require('./src/middleware/errorMiddleware');
+const userRoutes = require('./src/routes/userRouter')
 
 // Load config
 dotenv.config({ path: './.env' });
@@ -15,9 +13,6 @@ dotenv.config({ path: './.env' });
 connectDB();
 
 const app = express();
-
-// Logging
-app.use(logger);
 
 // Bodyparser Middleware
 app.use(bodyParser.json());

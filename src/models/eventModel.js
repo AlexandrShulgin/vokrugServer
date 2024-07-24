@@ -1,19 +1,36 @@
 const mongoose = require('mongoose');
 
 const EventSchema = new mongoose.Schema({
-    name: {
+    type: {
         type: String,
         required: true,
     },
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    password: {
+    description: {
         type: String,
         required: true,
     },
+    coordinates: {
+        type: [Number],
+        required: true,
+        validate: {
+            validator: function(array) {
+                return array.length === 2;
+            },
+            message: 'Coordinates must be an array of two numbers.'
+        }
+    },
+    time: {
+        type: Number,
+        default: 900000
+    },
+    userId: {
+        type: Number,
+        required: true,
+    },
+    rating: {
+        type: Number,
+        default: 0
+    }
 }, { timestamps: true });
 
 const Event = mongoose.model('Event', EventSchema);

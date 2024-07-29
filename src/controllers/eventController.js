@@ -1,13 +1,14 @@
 const Event = require('../models/eventModel');
 
 const createEvent = async (req, res) => {
-    const { type, description, coordinates, userId } = req.body;
+    const { type, description, coordinates, address, userId } = req.body;
 
     try {
         const event = new Event({
             type,
             description,
             coordinates,
+            address,
             userId
         });
 

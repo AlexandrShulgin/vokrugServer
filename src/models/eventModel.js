@@ -19,6 +19,16 @@ const EventSchema = new mongoose.Schema({
             message: 'Coordinates must be an array of two numbers.'
         }
     },
+    address: {
+      name: {
+        type: String,
+        required: true,
+      },
+      description: {
+        type: String,
+        required: true,
+      },
+    },
     time: {
         type: Number,
         default: 900000

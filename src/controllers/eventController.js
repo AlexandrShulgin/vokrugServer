@@ -1,28 +1,13 @@
 const Event = require('../models/eventModel');
+const turf = require('@turf/turf')
 
 const getDistance = (pointA, pointB) => {
-  const latA = Number(pointA[1]) * Math.PI / 180
-  const longA = Number(pointA[0]) * Math.PI / 180
-  const latB = Number(pointB[1]) * Math.PI / 180
-  const longB = Number(pointB[0]) * Math.PI / 180
-
-  const cl1 = Math.cos(latA);
-  const cl2 = Math.cos(latB);
-  const sl1 = Math.sin(latA);
-  const sl2 = Math.sin(latB);
-  const delta = longA - longB;
-  const cdelta = Math.cos(delta);
-  const sdelta = Math.sin(delta);
-
-  const y = Math.sqrt(Math.pow(cl2 * sdelta, 2) + Math.pow(cl1 * sl2 - sl1 * cl2 * cdelta, 2));
-  const x = sl1 * sl2 + cl1 * cl2 * cdelta;
-  const distance = Math.atan2(y, x) * 6371;
-  
+  const distance = turf.distance(pointA, pointB, {units: "kilometers"})
   return distance
 }
 
 const createEvent = async (req, res) => {
-    const { type, description, coordinates, address, userId } = req.body;
+    const { type, description, coordinates, address, userId, name } = req.body;
 
     try {
         const event = new Event({
@@ -30,7 +15,8 @@ const createEvent = async (req, res) => {
             description,
             coordinates,
             address,
-            userId
+            userId,
+            name,
         });
 
         await event.save();

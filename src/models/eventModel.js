@@ -7,7 +7,6 @@ const EventSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: true,
     },
     coordinates: {
         type: [Number],
@@ -36,6 +35,9 @@ const EventSchema = new mongoose.Schema({
     userId: {
         type: Number,
         required: true,
+    },
+    name: {
+        type: String,
     },
     rating: {
         type: Number,

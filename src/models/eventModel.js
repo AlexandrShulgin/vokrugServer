@@ -33,16 +33,23 @@ const EventSchema = new mongoose.Schema({
         default: 900000
     },
     userId: {
-        type: Number,
+        type: String,
         required: true,
     },
     name: {
         type: String,
     },
-    rating: {
-        type: Number,
-        default: 0
-    }
+    pluses: {
+      type: [String],
+    },
+    reports: {
+      type: [String],
+    },
+    comments: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment",
+    },
+
 }, { timestamps: true });
 
 const Event = mongoose.model('Event', EventSchema);

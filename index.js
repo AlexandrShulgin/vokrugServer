@@ -6,6 +6,7 @@ const connectDB = require('./src/config/db');
 const { errorHandler } = require('./src/middleware/errorMiddleware');
 const userRoutes = require('./src/routes/userRouter')
 const eventRoutes = require('./src/routes/eventRouter')
+const commentRoutes = require('./src/routes/commentRouter')
 
 // Load config
 dotenv.config({ path: './.env' });
@@ -25,6 +26,7 @@ app.use(cors());
 // Routes
 app.use('/api', userRoutes);
 app.use('/api', eventRoutes);
+app.use('/api', commentRoutes)
 
 // Error handling middleware
 app.use(errorHandler);

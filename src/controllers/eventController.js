@@ -46,4 +46,36 @@ const getEventsInArea = async (req, res) => {
   }
 }
 
-module.exports = { createEvent, getAllEvents, getEventsInArea };
+const getEventById = async (req, res) => {
+  const { id } = req.query
+  try {
+    const event = await Event.findById({_id: id})
+    res.status(200).json(event);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
+const plusEvent = async (req, res) => {
+  const {eventId, userId} = req.body
+  try {
+    const event = await Event.findByIdAndUpdate({_id: eventId}, {$push: {'pluses': userId}})
+    await event.save()
+    res.status(201).json(event);
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error', error: error.message });
+  }
+}
+
+const reportEvent = async (req, res) => {
+  const {eventId, userId} = req.body
+  try {
+    const event = await Event.findByIdAndUpdate({_id: eventId}, {$push: {'reports': userId}})
+    await event.save()
+    res.status(201).json(event);
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error', error: error.message });
+  }
+}
+
+module.exports = { createEvent, getAllEvents, getEventsInArea, getEventById, plusEvent, reportEvent };

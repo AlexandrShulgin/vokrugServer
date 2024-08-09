@@ -49,7 +49,6 @@ const EventSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "Comment",
     },
-
 }, { timestamps: true });
 
 const Event = mongoose.model('Event', EventSchema);

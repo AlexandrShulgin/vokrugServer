@@ -6,12 +6,16 @@ const CommentSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
+  event: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Event',
+  },
   text: {
     type: String,
     required: true
   },
-  fileUrl: {
-    type: String,
+  media: {
+    type: [String]
   }
 }, { timestamps: true });
 

@@ -7,6 +7,8 @@ const { errorHandler } = require('./src/middleware/errorMiddleware');
 const userRoutes = require('./src/routes/userRouter')
 const eventRoutes = require('./src/routes/eventRouter')
 const commentRoutes = require('./src/routes/commentRouter')
+const mediaRoutes = require('./src/routes/mediaRouter')
+const path = require('path');
 
 // Load config
 dotenv.config({ path: './.env' });
@@ -16,6 +18,7 @@ connectDB();
 
 const app = express();
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Bodyparser Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,7 +29,8 @@ app.use(cors());
 // Routes
 app.use('/api', userRoutes);
 app.use('/api', eventRoutes);
-app.use('/api', commentRoutes)
+app.use('/api', commentRoutes);
+app.use('/api', mediaRoutes);
 
 // Error handling middleware
 app.use(errorHandler);

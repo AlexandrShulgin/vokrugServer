@@ -1,11 +1,9 @@
 const express = require('express');
 const multer = require('multer')
-const { createComment } = require('../controllers/commentController');
+const { createComment, getCommentByEvent, upload } = require('../controllers/commentController');
 const router = express.Router();
 
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
-
-router.post('/comments', upload.single('file'), createComment);
+router.post('/comments/create', upload.single('media'), createComment);
+router.get('/comments/getByEvent', getCommentByEvent)
 
 module.exports = router;

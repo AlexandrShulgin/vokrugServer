@@ -6,7 +6,7 @@ const querystring = require('querystring');
 const getToken = async (code) => {
   const client_id = '85d13ff8593a461a9d0d6328dc713073';
   const client_secret = '673144e468a44d69952bff4f32df0f25';
-  const redirect_uri = 'http://localhost:3000/auth/callback';
+  const redirect_uri = 'http://5.35.44.198:3000/auth/callback';
 
   const authHeader = `Basic ${Buffer.from(`${client_id}:${client_secret}`).toString('base64')}`;
 

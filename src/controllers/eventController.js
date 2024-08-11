@@ -123,4 +123,20 @@ const reportEvent = async (req, res) => {
   }
 }
 
-module.exports = { createEvent, getAllEvents, getEventsInArea, getEventById, plusEvent, reportEvent, upload };
+const deleteEvent = async (req, res) => {
+  const { eventId } = req.body;
+
+  try {
+    const deletedEvent = await Event.findByIdAndDelete(eventId);
+
+    if (!deletedEvent) {
+      return res.status(404).json({ message: "Event not found" });
+    }
+
+    res.status(200).json({ message: "Event deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error", error: error.message });
+  }
+};
+
+module.exports = { createEvent, getAllEvents, getEventsInArea, getEventById, plusEvent, reportEvent, deleteEvent, upload };

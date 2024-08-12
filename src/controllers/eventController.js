@@ -95,9 +95,11 @@ const plusEvent = async (req, res) => {
     const plusedEvent = await Event.find({_id: eventId, pluses: userId})
     if (plusedEvent[0]) {
       const event = await Event.findByIdAndUpdate({_id: eventId}, {$pull: {'pluses': userId}})
+      event.expireAt = new Date(event.expireAt.getTime() - 5 * 60 * 1000);
       await event.save()
     } else {
       const event = await Event.findByIdAndUpdate({_id: eventId}, {$push: {'pluses': userId}})
+      event.expireAt = new Date(event.expireAt.getTime() + 5 * 60 * 1000);
       await event.save()
     }
     res.status(201).json({message: "Plus"});

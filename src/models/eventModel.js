@@ -28,10 +28,6 @@ const EventSchema = new mongoose.Schema({
         required: true,
       },
     },
-    time: {
-        type: Number,
-        default: 900000
-    },
     userId: {
         type: String,
         required: true,
@@ -49,6 +45,11 @@ const EventSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "Comment",
     },
+    expireAt: { 
+      type: Date,
+      default: Date.now,
+      index: { expires: '30m' }
+  },
 }, { timestamps: true });
 
 const Event = mongoose.model('Event', EventSchema);
